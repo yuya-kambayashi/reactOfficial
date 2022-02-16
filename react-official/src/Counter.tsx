@@ -10,6 +10,13 @@ const Counter = () => {
     const [open, setOpen] = useState<boolean>(true)
     // toggleの関数を宣言
     const toggle = () => setOpen(!open)
+
+    const initialArray = Array(3).fill("A");
+    const [letters, setLetters] = useState<string[]>(initialArray);
+    const addLetter = (letter: string) => {
+        setLetters(prevState => prevState.concat("B"));
+    }
+
   
     return (
       <>
@@ -20,9 +27,15 @@ const Counter = () => {
           <button onClick={() => setCount(prevState => prevState + 1)}>
             + 1
           </button>
-          <button onClick={() => setCount(count - 1)}>- 1</button>
+          <button onClick={() => setCount(count - 1)}>- 1A</button>
+          <button onClick={() => setCount(prevState => prevState - 1)}>- 1B</button>
           <button onClick={() => setCount(0)}>０</button>
           <button onClick={() => setCount(initialState)}>最初の数値に戻す</button>
+        </div>
+
+        <div className={open ? 'isOpen' : 'isClose'}>
+          <p>現在の文字列は{letters}です</p>
+          <button onClick={() => setLetters( prevState => prevState.concat("B"))}>文字を追加する</button>
         </div>
       </>
     )
