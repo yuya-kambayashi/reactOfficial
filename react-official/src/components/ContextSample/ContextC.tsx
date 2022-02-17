@@ -1,7 +1,7 @@
 //ReactからuseContextをimport
 import React, {useContext} from 'react'
 //AppコンポーネントからUserContext, HobbyContextをimport
-import {UserContext, HobbyContext} from '../../App'
+//import {UserContext, HobbyContext} from '../../App'
 
 const ContextC = () => {
 //useContextの引数に、UserContextやHobbyContextを渡すことによって、
@@ -14,7 +14,7 @@ const ContextC = () => {
 
   return (
     <>
-    <UserContext.Consumer>
+    {/* <UserContext.Consumer>
       {
         user => {
           return (
@@ -24,7 +24,7 @@ const ContextC = () => {
           )
         }
       }
-    </UserContext.Consumer>
+    </UserContext.Consumer> */}
     </>
   )
 }
