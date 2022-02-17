@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import './styles.css';
 
 const Counter = () => {
@@ -11,12 +11,18 @@ const Counter = () => {
     // toggleの関数を宣言
     const toggle = () => setOpen(!open)
 
-    const initialArray = Array(3).fill("A");
+    const initialArray = ["A", "B", "C"];
     const [letters, setLetters] = useState<string[]>(initialArray);
     const addLetter = (letter: string) => {
         setLetters(prevState => prevState.concat("B"));
     }
 
+    const exchangeLetter = () => {
+        const newArray = letters.slice();
+        newArray.splice(0, 1, "E");
+        console.log(newArray);
+        setLetters(newArray);
+    }
   
     return (
       <>
@@ -36,6 +42,15 @@ const Counter = () => {
         <div className={open ? 'isOpen' : 'isClose'}>
           <p>現在の文字列は{letters}です</p>
           <button onClick={() => setLetters( prevState => prevState.concat("B"))}>文字を追加する</button>
+          <button onClick={exchangeLetter}>文字を置き換える1</button>
+          <button onClick={
+              () => setLetters( prevState => {
+                                const newArray = prevState.slice();
+                                newArray.splice(0, 1, "F");
+                                return newArray;
+                            })}>
+            文字を置き換える2
+            </button>
         </div>
       </>
     )
