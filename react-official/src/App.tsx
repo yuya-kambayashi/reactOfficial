@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Counter from './Counter'
+import EffectClass from './EffectClass'
+import EffectFunc from './EffectFunc'
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             </a>
           </header> */}
           <Counter />
+          <EffectClass />
+          <EffectFunc />
     </div>
   );
 }
