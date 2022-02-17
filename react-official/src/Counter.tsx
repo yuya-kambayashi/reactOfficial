@@ -25,9 +25,9 @@ const initialLetterState = {
 }
 
 const reducerFuncLetters = (letterState:any, action: any) => {
-  switch (action){
+  switch (action.type){
     case 'concat':
-      return {...letterState, letters: letterState.letters.concat("B"), letterUsage: letterState.letterUsage.concat("unused")};
+      return {...letterState, letters: letterState.letters.concat(action.target), letterUsage: letterState.letterUsage.concat("unused")};
     case 'replace':
       return letterState.letters.concat("C");
     default:
@@ -103,7 +103,8 @@ const Counter = () => {
         <div className={open ? 'isOpen' : 'isClose'}>
           <p>現在の文字列は{letters2.letters}です</p>
           <p>現在の文字の状態は{letters2.letterUsage}です</p>
-          <button onClick={() => dispatchLetter('concat')}>Bを追加する</button>
+          <button onClick={() => dispatchLetter({type:'concat', target:'B'})}>Bを追加する</button>
+          <button onClick={() => dispatchLetter({type:'concat', target:'C'})}>Cを追加する</button>
         </div>
       </>
     )
