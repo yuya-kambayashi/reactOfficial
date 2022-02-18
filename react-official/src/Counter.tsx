@@ -1,9 +1,35 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useReducer} from 'react';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import './styles.css';
+import { reducerFuncLetters, ActionType, ActionDetail } from './Reducer'
+import LetterButton from './LetterButton';
+
+    // countの初期値として、1~10までのランダムな数値を生成
+    const initialState = Math.floor(Math.random() * 10) + 1;
+
+const reducerFunc = (countState:any, action: any) => {
+  switch (action){
+    case 'increment':
+      return countState + 1
+    case 'decrement':
+      return countState - 1
+    case 'reset':
+      return initialState
+    default:
+      return countState
+  }
+}
+
+const initialLetterState = {
+  letters: ["A", "B", "C"],
+  letterUsage: Array(3).fill("unused"),
+}
+
+
 
 const Counter = () => {
-    // countの初期値として、1~10までのランダムな数値を生成
-    const initialState = Math.floor(Math.random() * 10) + 1
+
     // count という名前の state 変数を宣言、初期値 initialState をセット
     const [count, setCount] = useState<number>(initialState)
     // open という名前の state 変数を宣言、初期値 true をセット
@@ -23,6 +49,15 @@ const Counter = () => {
         console.log(newArray);
         setLetters(newArray);
     }
+
+    const [count2, dispatch] = useReducer(reducerFunc, initialState)
+
+    const [letters2, dispatchLetter] = useReducer(reducerFuncLetters, initialLetterState);
+
+    const actionDetailA : ActionDetail = {
+      type: ActionType.CONCAT,
+      target: "A",
+    };
   
     return (
       <>
@@ -40,6 +75,15 @@ const Counter = () => {
         </div>
 
         <div className={open ? 'isOpen' : 'isClose'}>
+        <h2>カウント：{count2}</h2>
+          <ButtonGroup color="primary" aria-label="outlined primary button group">
+          <Button onClick={()=>dispatch('increment')}>increment</Button>
+          <Button onClick={()=>dispatch('decrement')}>decrement</Button>
+          <Button onClick={()=>dispatch('reset')}>reset</Button>
+        </ButtonGroup>
+        </div>
+
+        <div className={open ? 'isOpen' : 'isClose'}>
           <p>現在の文字列は{letters}です</p>
           <button onClick={() => setLetters( prevState => prevState.concat("B"))}>文字を追加する</button>
           <button onClick={exchangeLetter}>文字を置き換える1</button>
@@ -51,6 +95,16 @@ const Counter = () => {
                             })}>
             文字を置き換える2
             </button>
+        </div>
+        <div className={open ? 'isOpen' : 'isClose'}>
+          <p>現在の文字列は{letters2.letters}です</p>
+          <p>現在の文字の状態は{letters2.letterUsage}です</p>
+          {/* <button onClick={() => dispatchLetter({type: ActionType.CONCAT, target:'B'})}>Bを追加する</button>
+          <button onClick={() => dispatchLetter({type: ActionType.CONCAT, target:'C'})}>Cを追加する</button>
+          <button onClick={() => dispatchLetter(actionDetailA)}>Aを追加する</button> */}
+          <LetterButton dispatchLetter={dispatchLetter}/>
+          {/* <button onClick={() => dispatchLetter({type: ActionType.SPLICE, target:'W', index: 0})}>0番目の要素をWに置き換える</button>
+          <button onClick={() => dispatchLetter({type: ActionType.SPLICE, target:'Z', index: 1})}>1番目の要素をZに置き換える</button> */}
         </div>
       </>
     )
