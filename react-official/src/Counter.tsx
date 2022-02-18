@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect, useReducer} from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import './styles.css';
-import { reducerFuncLetters } from './Reducer'
+import { reducerFuncLetters, ActionMode } from './Reducer'
 
     // countの初期値として、1~10までのランダムな数値を生成
     const initialState = Math.floor(Math.random() * 10) + 1;
@@ -94,10 +94,10 @@ const Counter = () => {
         <div className={open ? 'isOpen' : 'isClose'}>
           <p>現在の文字列は{letters2.letters}です</p>
           <p>現在の文字の状態は{letters2.letterUsage}です</p>
-          <button onClick={() => dispatchLetter({type:'concat', target:'B'})}>Bを追加する</button>
-          <button onClick={() => dispatchLetter({type:'concat', target:'C'})}>Cを追加する</button>
-          <button onClick={() => dispatchLetter({type:'splice', target:'W', index: '0'})}>0番目の要素をWに置き換える</button>
-          <button onClick={() => dispatchLetter({type:'splice', target:'Z', index: '1'})}>1番目の要素をZに置き換える</button>
+          <button onClick={() => dispatchLetter({type: ActionMode.CONCAT, target:'B'})}>Bを追加する</button>
+          <button onClick={() => dispatchLetter({type: ActionMode.CONCAT, target:'C'})}>Cを追加する</button>
+          <button onClick={() => dispatchLetter({type: ActionMode.SPLICE, target:'W', index: 0})}>0番目の要素をWに置き換える</button>
+          <button onClick={() => dispatchLetter({type: ActionMode.SPLICE, target:'Z', index: 1})}>1番目の要素をZに置き換える</button>
         </div>
       </>
     )
