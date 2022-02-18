@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect, useReducer} from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import './styles.css';
+import { reducerFuncLetters } from './Reducer'
 
     // countの初期値として、1~10までのランダムな数値を生成
     const initialState = Math.floor(Math.random() * 10) + 1;
@@ -24,16 +25,6 @@ const initialLetterState = {
   letterUsage: Array(3).fill("unused"),
 }
 
-const reducerFuncLetters = (letterState:any, action: any) => {
-  switch (action.type){
-    case 'concat':
-      return {...letterState, letters: letterState.letters.concat(action.target), letterUsage: letterState.letterUsage.concat("unused")};
-    case 'replace':
-      return letterState.letters.concat("C");
-    default:
-      return letterState
-  }
-}
 
 
 const Counter = () => {
@@ -105,6 +96,8 @@ const Counter = () => {
           <p>現在の文字の状態は{letters2.letterUsage}です</p>
           <button onClick={() => dispatchLetter({type:'concat', target:'B'})}>Bを追加する</button>
           <button onClick={() => dispatchLetter({type:'concat', target:'C'})}>Cを追加する</button>
+          <button onClick={() => dispatchLetter({type:'splice', target:'W', index: '0'})}>0番目の要素をWに置き換える</button>
+          <button onClick={() => dispatchLetter({type:'splice', target:'Z', index: '1'})}>1番目の要素をZに置き換える</button>
         </div>
       </>
     )
