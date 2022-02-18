@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Counter from './Counter'
+import UseMemo from './useMemo'
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
               https://qiita.com/seira/items/fccdf4e73c59c491558d
             </a>
           </header> */}
-          <Counter />
+          {/* <Counter /> */}
+          <UseMemo />
     </div>
   );
 }
