@@ -1,8 +1,13 @@
-export const reducerFuncLetters = (letterState:any, action: {type: ActionMode, target: string, index?: number}) => {
+export enum ActionType {
+CONCAT = "concat",
+SPLICE = "splice",
+}
+
+export const reducerFuncLetters = (letterState:any, action: ActionDetail) => {
     switch (action.type){
-      case ActionMode.CONCAT:
+      case ActionType.CONCAT:
         return {...letterState, letters: letterState.letters.concat(action.target), letterUsage: letterState.letterUsage.concat("unused")};
-      case ActionMode.SPLICE:
+      case ActionType.SPLICE:
         const newArray = letterState.letters.slice();
         newArray.splice(action.index, 1, action.target);
   
@@ -15,7 +20,9 @@ export const reducerFuncLetters = (letterState:any, action: {type: ActionMode, t
     }
   }
 
-  export enum ActionMode {
-    CONCAT = "concat",
-    SPLICE = "splice",
+
+  export type ActionDetail = {
+      type: ActionType,
+      target: string,
+      index?: number
   }
